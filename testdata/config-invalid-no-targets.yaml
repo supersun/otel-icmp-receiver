@@ -1,0 +1,18 @@
+receivers:
+  icmpcheck:
+    collection_interval: -10s
+#    default_ping_count: 3
+#    default_ping_timeout: 5s
+
+processors:
+  nop:
+
+exporters:
+  nop:
+
+service:
+  pipelines:
+    metrics:
+      receivers: [ icmpcheck ]
+      processors: [ nop ]
+      exporters: [ nop ]

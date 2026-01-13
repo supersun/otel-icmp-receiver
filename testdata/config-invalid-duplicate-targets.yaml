@@ -1,0 +1,47 @@
+receivers:
+  icmpcheck:
+    collection_interval: 10s
+    default_ping_count: 3
+    default_ping_timeout: 5s
+    targets:
+      - target: localhost1
+      - target: localhost2
+      - target: localhost3
+      - target: localhost4
+
+  icmpcheck/2:
+    collection_interval: 10s
+    default_ping_count: 3
+    default_ping_timeout: 5s
+    targets:
+      - target: localhost1
+      - target: localhost5
+      - target: localhost6
+      - target: localhost5
+
+  icmpcheck/3:
+    collection_interval: 10s
+    default_ping_count: 3
+    default_ping_timeout: 5s
+    targets:
+      - target: localhost1
+      - target: localhost6
+      - target: localhost7
+      - target: localhost7
+      - target: localhost8
+      - target: localhost9
+
+
+processors:
+  nop:
+
+exporters:
+  nop:
+
+
+service:
+  pipelines:
+    metrics:
+      receivers: [ icmpcheck, icmpcheck/2, icmpcheck/3 ]
+      processors: [ nop ]
+      exporters: [ nop ]

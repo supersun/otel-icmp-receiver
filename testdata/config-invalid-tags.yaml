@@ -1,0 +1,32 @@
+receivers:
+
+  icmpcheck/invalid-tag-with-space:
+    collection_interval: 5s
+    default_ping_count: 4
+    default_ping_timeout: 5s
+    tag: " "
+    targets:
+      - target: www.ggoogle.com
+
+  icmpcheck/invalid-tag-with-space-2:
+    collection_interval: 5s
+    default_ping_count: 4
+    default_ping_timeout: 5s
+    tag: "this- is-invalid"
+    targets:
+      - target: www.google2.com
+
+
+processors:
+  nop:
+
+exporters:
+  nop:
+
+
+service:
+  pipelines:
+    metrics:
+      receivers: [ icmpcheck/invalid-tag-with-space, icmpcheck/invalid-tag-with-space-2 ]
+      processors: [ nop ]
+      exporters: [ nop ]

@@ -1,0 +1,38 @@
+receivers:
+  icmpcheck:
+    collection_interval: 10s
+    default_ping_count: 3
+    default_ping_timeout: 5s
+    targets:
+      - target: www.amazon.de
+        ping_count: 4
+        ping_timeout: 5s
+      - target: www.amazon.com
+      - target: www.doesnot123exiiiiist.coom
+      - target: api.amazon.com
+      - target: api.amazon.de # request timeout
+        ping_timeout: 2s
+      - target: 8.8.8.8
+
+  icmpcheck/custom-5s:
+    collection_interval: 5s
+    default_ping_count: 4
+    default_ping_timeout: 5s
+    tag: "fake-custom-5s-tag"
+    targets:
+      - target: www.cnn.com
+
+
+processors:
+  nop:
+
+exporters:
+  nop:
+
+
+service:
+  pipelines:
+    metrics:
+      receivers: [ icmpcheck, icmpcheck/custom-5s ]
+      processors: [ nop ]
+      exporters: [ nop ]
