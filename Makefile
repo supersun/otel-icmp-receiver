@@ -9,8 +9,7 @@ update-deps:
 	go mod tidy
 
 
-#github.com/supersun/otel-icmp-receiver/-/tags
-REMOTE?=github.com/supersun/otel-icmp-receiver.git
+REMOTE?=git@github.com:supersun/otel-icmp-receiver.git
 .PHONY: push-tags
 push-tags:
 	@[ "${TAG}" ] || ( echo ">> env var TAG is not set"; exit 1 )
